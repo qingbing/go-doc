@@ -13,6 +13,8 @@ go 语言学习笔记
         - [001.flag-命令行解析包](./003.go标准包/002.flag-命令行解析/001.flag-命令行解析包.md)
     - 003.strings-字符串处理
         - [001.strings-字符串处理](./003.go标准包/003.strings-字符串处理/001.strings-字符串处理.md)
+    - 004.builtin
+        - [001.builtin-内置包](./003.go标准包/004.builtin/001.builtin-内置包.md)
 - 100.三方包
     - 001.logrus——日志库
         - [001.logrus-日志包](./100.三方包/001.logrus——日志库/001.logrus-日志包.md)
