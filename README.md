@@ -22,6 +22,8 @@ go 语言学习笔记
         - [001.builtin-内置包](./004.go标准包/004.builtin/001.builtin-内置包.md)
     - 005.unsafe-内存操作
         - [001.unsafe-内存操作](./004.go标准包/005.unsafe-内存操作/001.unsafe-内存操作.md)
+    - 006.errors-错误包
+        - [001.errors-错误包](./004.go标准包/006.errors-错误包/001.errors-错误包.md)
 - 100.三方包
     - 001.logrus-日志库
         - [001.logrus-日志包](./100.三方包/001.logrus-日志库/001.logrus-日志包.md)
