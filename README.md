@@ -26,6 +26,13 @@ go 语言学习笔记
         - [001.errors-错误包](./004.go标准包/006.errors-错误包/001.errors-错误包.md)
     - 007.strconv-类型转换包
         - [001.strconv-类型转换](./004.go标准包/007.strconv-类型转换包/001.strconv-类型转换.md)
+    - 008.path.filepath-文件路径包
+        - [001.path.filepath-文件路径包](./004.go标准包/008.path.filepath-文件路径包/001.path.filepath-文件路径包.md)
+    - 009.encoding.json-json包
+        - [001.encoding.json-json包](./004.go标准包/009.encoding.json-json包/001.encoding.json-json包.md)
+- 005.功能代码
+    - [001.使用计数器函数](./005.功能代码/001.使用计数器函数.md)
+    - [002.在defer中循环变量传入易错问题](./005.功能代码/002.在defer中循环变量传入易错问题.md)
 - 100.三方包
     - 001.logrus-日志库
         - [001.logrus-日志包](./100.三方包/001.logrus-日志库/001.logrus-日志包.md)
