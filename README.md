@@ -34,6 +34,8 @@ go 语言学习笔记
         - [001.runtime-运行时包](./004.go标准包/010.runtime-运行时包/001.runtime-运行时包.md)
         - [002.runtime.MemStats-内存分配和统计结构体](./004.go标准包/010.runtime-运行时包/002.runtime.MemStats-内存分配和统计结构体.md)
         - [003.runtime.MemProfileRecord-内存profile记录历史](./004.go标准包/010.runtime-运行时包/003.runtime.MemProfileRecord-内存profile记录历史.md)
+    - 011.bytes-bytes管理包
+        - [001.bytes-bytes管理包](./004.go标准包/011.bytes-bytes管理包/001.bytes-bytes管理包.md)
 - 005.功能代码
     - [001.使用计数器函数](./005.功能代码/001.使用计数器函数.md)
     - [002.在defer中循环变量传入易错问题](./005.功能代码/002.在defer中循环变量传入易错问题.md)
