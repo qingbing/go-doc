@@ -1,0 +1,53 @@
+package main
+
+import (
+	"io"
+	"os"
+)
+
+func copyFile1(source, target string) (success bool, err error) {
+	sFile, err := os.OpenFile(source, os.O_RDONLY, os.ModePerm)
+	if err != nil {
+		return
+	}
+	defer sFile.Close()
+
+	tFile, err := os.OpenFile(target, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return
+	}
+	defer tFile.Close()
+
+	if _, err = io.Copy(tFile, sFile); err != nil {
+		return
+	}
+	return true, nil
+}
+
+func copyFile2(source, target string) (success bool, err error) {
+	sFile, err := os.OpenFile(source, os.O_RDONLY, os.ModePerm)
+	if err != nil {
+		return
+	}
+	defer sFile.Close()
+
+	tFile, err := os.OpenFile(target, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.ModePerm)
+	if err != nil {
+		return
+	}
+	defer tFile.Close()
+
+	for {
+		_, err := io.CopyN(tFile, sFile, 1024*4)
+		if err == io.EOF {
+			return true, nil
+		} else if err != nil {
+			return
+		}
+	}
+}
+
+func main() {
+	copyFile1("test.txt", "copyFile1.out")
+	copyFile2("test.txt", "copyFile2.out")
+}
