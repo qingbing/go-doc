@@ -3,13 +3,45 @@
 # 本脚步目的 ： 从当前目录自动生成 .md 文件的索引文件，并把文件放在当前目录
 #     
 # 本脚步使用方法
-# ./make_index.sh
+# ./index.sh
+
+########################### 函数库 START ###########################
+
+# 获取文件名的后缀
+function file_extension()
+{
+	file=$1
+	echo "${file##*.}"
+}
+
+# 判断一个变量是否在数组中
+# in_array 1233 "${array[*]}"
+function in_array()
+{
+	val=$1
+	arr=$2
+	if [[ "$val" == null ]]; then
+		return 0
+	fi
+	for i in ${arr[@]}; do
+		if [[ "$i" == "$val" ]]; then
+			return 1;
+		fi
+	done
+	return 0
+}
+
+# 获取路径中的文件名，不带后缀
+function filename()
+{
+	file=$1
+	echo "${file%.*}"
+}
+
+########################### 函数库 END   ###########################
 
 # 获取脚本所在目录
 rPath=$(cd $(dirname $0); pwd)
-# 加载公共函数
-. $rPath/ShellLib/index.sh
-loadFiles $rPath/ShellLib
 
 # 索引文件名
 indexFileName=README.md
@@ -33,7 +65,7 @@ function hasMdFile()
 			continue
 		fi
 
-		local fileExt=`extensionname $_file`
+		local fileExt=`file_extension $_file`
 		# 文件扩展判断为 md
 		if [[ "${fileExt}" == "md" || "${fileExt}" == "MD" ]]; then
 			return 1
@@ -73,7 +105,7 @@ function generateMdIndex()
 		fi
 
 		#文件扩展
-		local fileExt=`extensionname $file`
+		local fileExt=`file_extension $file`
 		# 文件扩展判断为 md
 		if [[ "${fileExt}" == "md" || "${fileExt}" == "MD" ]]; then
 			files[fileIdx]=$filePath;
@@ -101,8 +133,8 @@ function generateMdIndex()
     done
 }
 
-echo "# go-doc
-go 语言学习笔记
+echo "# md.doc
+md为主的文案
 " > $indexFile;
 
 
