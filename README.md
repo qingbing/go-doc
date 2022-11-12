@@ -1,6 +1,7 @@
 # md.doc
 md为主的文案
 
+- [README](./README.md)
 - 001.安装和使用
     - [001.go的安装](./001.安装和使用/001.go的安装.md)
     - [002.mac-执行gotest命令报无法打开vet命令的处理](./001.安装和使用/002.mac-执行gotest命令报无法打开vet命令的处理.md)
@@ -65,3 +66,5 @@ md为主的文案
         - [001.logrus-日志包](./100.三方包/001.logrus-日志库/001.logrus-日志包.md)
     - 002.jwt-身份认证
         - [001.jwt-身份认证](./100.三方包/002.jwt-身份认证/001.jwt-身份认证.md)
+- tmp
+    - [readme](./tmp/readme.md)

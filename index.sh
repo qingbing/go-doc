@@ -23,7 +23,7 @@ function in_array()
 	if [[ "$val" == null ]]; then
 		return 0
 	fi
-	for i in ${arr[@]}; do
+	for i in "${arr[@]}"; do
 		if [[ "$i" == "$val" ]]; then
 			return 1;
 		fi
@@ -41,7 +41,7 @@ function filename()
 ########################### 函数库 END   ###########################
 
 # 获取脚本所在目录
-rPath=$(cd $(dirname $0); pwd)
+rPath=$(cd "$(dirname "${0}")" || exit; pwd)
 
 # 索引文件名
 indexFileName=README.md
@@ -55,17 +55,17 @@ function hasMdFile()
 	echo "Browse Path: ${sPath}"
 	for _file in $(ls $sPath); do
 		local filePath="${sPath}/${_file}"
-
 		# 目录
 		if [[ -d $filePath ]]; then
-			hasMdFile $filePath
+			hasMdFile "${filePath}"
 			if [[ $? -ne 0 ]]; then
 				return 1
 			fi
 			continue
 		fi
 
-		local fileExt=`file_extension $_file`
+		local fileExt
+		fileExt=$(file_extension "${_file}")
 		# 文件扩展判断为 md
 		if [[ "${fileExt}" == "md" || "${fileExt}" == "MD" ]]; then
 			return 1
@@ -89,7 +89,7 @@ function generateMdIndex()
 	local folderIdx=0
 	for file in $(ls $sPath); do
 		# 忽略文件
-		in_array $file "${ingoreFiles[*]}"
+		in_array "${file}" "${ingoreFiles[*]}"
 		isIngoreFile=$?
 		if [[ $isIngoreFile -eq 1 ]]; then
 			continue;
@@ -100,45 +100,46 @@ function generateMdIndex()
 		# 目录
 		if [[ -d $filePath ]]; then
 			folders[folderIdx]=$filePath;
-			let "folderIdx=$folderIdx + 1"
+			(( folderIdx="${folderIdx}" + 1 )) || true
 			continue;
 		fi
 
 		#文件扩展
-		local fileExt=`file_extension $file`
+		local fileExt
+		fileExt=$(file_extension "${file}")
 		# 文件扩展判断为 md
 		if [[ "${fileExt}" == "md" || "${fileExt}" == "MD" ]]; then
 			files[fileIdx]=$filePath;
-			let "fileIdx=$fileIdx + 1"
+			(( fileIdx="${fileIdx}" + 1 )) || true
 		fi
 	done
 
 	# 文件加载（执行）
-	for file in ${files[*]}; do
+	for file in "${files[@]}"; do
 		# 获取文件名
-		relativeFilename=`basename $file`
-		filename=`filename $relativeFilename`
+		relativeFilename=$(basename "${file}")
+		filename=$(filename "${relativeFilename}")
 
 		echo "${space}- [$filename]($prefix/$relativeFilename)" >> $indexFile
     done
     # 递归加载文件夹
-	for file in ${folders[*]}; do
-		basepath=`basename $file`
-		hasMdFile $file;
+	for file in "${folders[@]}"; do
+		basepath=$(basename "${file}")
+		hasMdFile "${file}";
 		if [[ $? -eq 0 ]]; then
 			continue;
 		fi
-		echo "${space}- $basepath" >> $indexFile
-		generateMdIndex $file $prefix/$basepath "${space}    "
+		echo "${space}- ${basepath}" >> "${indexFile}"
+		generateMdIndex "${file}" "${prefix}"/"${basepath}" "${space}    "
     done
 }
 
 echo "# md.doc
 md为主的文案
-" > $indexFile;
+" > "${indexFile}";
 
 
-ingoreFiles=($indexFileName tmp)
+ingoreFiles=("${indexFileName}" tmp)
 
-generateMdIndex $rPath '.' "" "${ingoreFiles[*]}"
+generateMdIndex "${rPath}" '.' "" "${ingoreFiles[*]}"
 
