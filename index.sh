@@ -19,12 +19,12 @@ function file_extension()
 function in_array()
 {
 	val=$1
-	arr=$2
-	if [[ "$val" == null ]]; then
+	local arr=($(echo "${2}"))
+	if [ "$val" == null ]; then
 		return 0
 	fi
 	for i in "${arr[@]}"; do
-		if [[ "$i" == "$val" ]]; then
+		if [ "$i" == "$val" ]; then
 			return 1;
 		fi
 	done
@@ -45,7 +45,6 @@ rPath=$(cd "$(dirname "${0}")" || exit; pwd)
 
 # 索引文件名
 indexFileName=README.md
-
 indexFile=${rPath}/${indexFileName}
 
 # 判断文件目录中是否包含 md 文件
@@ -74,13 +73,17 @@ function hasMdFile()
 	return 0
 }
 
-# 目录循环
+# 目录循环并执行相关逻辑
+#   p1: 检查文件路径
+#   p2: 当前目录的路径(前缀)
+#   p3: 输出时前缀空格
+#   p4: () 括号数组，忽略的文件或文件夹
 function generateMdIndex()
 {
 	local sPath=$1
 	local prefix=$2
 	local space=$3
-	local ingoreFiles=$4
+	local ingores=($(echo "${4}"))
 
 	# 定义变量
 	local files=()
@@ -89,7 +92,7 @@ function generateMdIndex()
 	local folderIdx=0
 	for file in $(ls $sPath); do
 		# 忽略文件
-		in_array "${file}" "${ingoreFiles[*]}"
+		in_array "${file}" "${ingores[*]}"
 		isIngoreFile=$?
 		if [[ $isIngoreFile -eq 1 ]]; then
 			continue;
@@ -138,7 +141,7 @@ echo "# md.doc
 md为主的文案
 " > "${indexFile}";
 
-
+# 忽略文件或文件夹定义
 ingoreFiles=("${indexFileName}" tmp)
 
 generateMdIndex "${rPath}" '.' "" "${ingoreFiles[*]}"
