@@ -61,6 +61,9 @@ md为主的文案
     - [008.go语言中md5加密字符串](./005.功能代码/008.go语言中md5加密字符串.md)
 - 006.dockerfile
     - [001.go文件多阶段实现容器化](./006.dockerfile/001.go文件多阶段实现容器化.md)
+- 099.project
+    - 001.main参数接受
+        - [readme](./099.project/001.main参数接受/readme.md)
 - 100.三方包
     - 001.logrus-日志库
         - [001.logrus-日志包](./100.三方包/001.logrus-日志库/001.logrus-日志包.md)
