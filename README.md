@@ -60,6 +60,9 @@ md为主的文案
     - [008.go语言中md5加密字符串](./005.功能代码/008.go语言中md5加密字符串.md)
 - 006.dockerfile
     - [001.go文件多阶段实现容器化](./006.dockerfile/001.go文件多阶段实现容器化.md)
+- 007.go学习
+    - [001.指针](./007.go学习/001.指针.md)
+    - [other](./007.go学习/other.md)
 - 099.project
     - 001.main参数接受
         - [readme](./099.project/001.main参数接受/readme.md)
