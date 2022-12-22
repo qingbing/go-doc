@@ -19,4 +19,13 @@ func main() {
 	fmt.Println("s20 = ", s20)           // [3 4]
 	fmt.Println("len(s20) = ", len(s20)) // 1
 	fmt.Println("cap(s20) = ", cap(s20)) // 4
+
+	//
+	fmt.Println("创建切片")
+	s31 := []int{1, 2, 3}
+	fmt.Println("s31, len=", len(s31), "cap=", cap(s31))
+	s32 := make([]int, 2)
+	fmt.Println("s32, len=", len(s32), "cap=", cap(s32))
+	s33 := make([]int, 2, 3)
+	fmt.Println("s33, len=", len(s33), "cap=", cap(s33))
 }
