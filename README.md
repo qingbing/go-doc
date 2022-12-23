@@ -63,7 +63,7 @@ md为主的文案
 - 007.go学习
     - [001.空间示意及指针的使用](./007.go学习/001.空间示意及指针的使用.md)
     - [002.切片的使用](./007.go学习/002.切片的使用.md)
-    - [other](./007.go学习/other.md)
+    - [readme](./007.go学习/readme.md)
 - 099.project
     - 001.main参数接受
         - [readme](./099.project/001.main参数接受/readme.md)
