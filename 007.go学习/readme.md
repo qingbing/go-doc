@@ -12,4 +12,6 @@
 
 - make 只能用于创建 slice、map、channel, 并且返回的是一个有初始值（非零）的对象
 - 参数传引用: slice, pointer
+- len 函数可针对 Array、Pointer to array、Slice、Map、String、Channel
+- cap 函数可针对 Array、Pointer to array、Slice、Channel
 
