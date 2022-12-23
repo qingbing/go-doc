@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// 创建 map
@@ -19,5 +21,40 @@ func main() {
 
 	m4 := make(map[string]string, 5)
 	m4["name"] = "qingbing"
-	fmt.Println("m4=", m4, "; len=", cap(m4))
+	fmt.Println("m4=", m4, "; len=", len(m4))
+
+	var m5 map[string]string = map[string]string{
+		"name" : "qingbing",
+		"sex":"nan",
+	}
+	fmt.Println("m5=", m5, "; len=", len(m5))
+
+	var m6 map[string]string = map[string]string{
+		"name" : "qingbing",
+		"sex":"nan",
+	}
+	for k, v := range m6{
+		fmt.Println("key:", k, "; value:", v)
+	}
+	for k := range m6{
+		fmt.Println("key:", k)
+	}
+	for _,v := range m6{
+		fmt.Println("value:", v)
+	}
+	
+	if v, ok := m6["xx"]; ok{
+		fmt.Println("存在 key:", "xx", "; 值为=", v)
+	}else{
+		fmt.Println("不存在 key:", "xx")
+	}
+
+	// map 的删除使用
+	var m7 map[string]string = map[string]string{
+		"name" : "qingbing",
+		"sex":"nan",
+	}
+	delete(m7, "sex")
+	delete(m7, "age")
+	fmt.Println("m7=", m7, "; len=", len(m7))
 }
