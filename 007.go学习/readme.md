@@ -16,4 +16,7 @@
 - 函数参数传引用: slice, map, pointer
 - len 函数可针对 Array、Pointer to array、Slice、Map、String、Channel
 - cap 函数可针对 Array、Pointer to array、Slice、Channel
+- 换行符
+  - windows: \r\n
+  - linux: \n
 
