@@ -50,7 +50,6 @@ func main(){
 		for{
 			// 以换行符为分割符读取(读取一行)
 			buffer, err := reader.ReadBytes('\n')
-			f4.Write()
 			if err !=nil && err == io.EOF {
 				fmt.Print("Over: ", string(buffer))
 				fmt.Println("Read Completed.")
