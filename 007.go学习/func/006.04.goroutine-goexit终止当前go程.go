@@ -1,0 +1,19 @@
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	go func() {
+		for {
+			fmt.Println("sing")
+			runtime.Goexit() // 终止当前 go 程
+		}
+	}()
+	for i := 0; i < 5; i++ {
+		runtime.Gosched() // 出让当前 cpu 时间片
+		fmt.Println("this is main dance")
+	}
+}
