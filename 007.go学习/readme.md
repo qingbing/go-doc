@@ -1,4 +1,8 @@
 
+- go 程序在启动进程时，系统会自动打开三个文件: 标准输入(stdin)、标准输出(stdout)、标准错误(stderr); 当进程结束时，系统会自动关闭这三个文件
+- I/O操作需要硬件支持，所以非常耗时，在有通道的go程中，打印输出的结果不一定是我们预期的
+
+
 - 格式化输出
   - %q: 以 go 语言格式显示字符从，默认带有 "" 符号
   - %v: 显示对应数据的详细信息
@@ -13,7 +17,7 @@
   - ***不可返回局部变量的地址值***——局部变量保存在栈帧上，函数调用结束后，栈帧释放。局部变量不再受到系统保护，随时可分配给其他程序。
 
 - make 只能用于创建 slice、map、channel, 并且返回的是一个有初始值（非零）的对象
-- 函数参数传引用: slice, map, pointer
+- 函数参数传引用: slice, map, pointer, chan
 - len 函数可针对 Array、Pointer to array、Slice、Map、String、Channel
 - cap 函数可针对 Array、Pointer to array、Slice、Channel
 - 换行符
