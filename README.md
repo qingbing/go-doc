@@ -68,6 +68,7 @@ md为主的文案
     - [006.go协程](./007.go学习/006.go协程.md)
     - [007.chan管道的使用](./007.go学习/007.chan管道的使用.md)
     - [008.time-定时器的使用](./007.go学习/008.time-定时器的使用.md)
+    - [009.select-io选择器的使用](./007.go学习/009.select-io选择器的使用.md)
     - [readme](./007.go学习/readme.md)
 - 099.project
     - 001.main参数接受
