@@ -1,0 +1,44 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+	_ "net/http/pprof"
+)
+
+func myPrint(w http.ResponseWriter, str string) {
+	fmt.Fprintf(w, "%s\n", str)
+}
+func home(w http.ResponseWriter, r *http.Request) {
+	for i := 0; i < 100000; i++ {
+		// do nothing
+	}
+	myPrint(w, "home")
+}
+func hello(w http.ResponseWriter, r *http.Request) {
+	for i := 0; i < 10000000; i++ {
+		// do nothing
+	}
+	myPrint(w, "hello")
+}
+func business(w http.ResponseWriter, r *http.Request) {
+	for i := 0; i < 10000000; i++ {
+		// do nothing
+	}
+	myPrint(w, "business")
+}
+func main() {
+	// runtime.SetBlockProfileRate(1)     // 开启对阻塞操作的跟踪，block
+	// runtime.SetMutexProfileFraction(1) // 开启对锁调用的跟踪，mutex
+	http.HandleFunc("/", home)
+	http.HandleFunc("/hello", hello)
+	http.HandleFunc("/business", business)
+	server := http.Server{
+		Addr: ":8001",
+	}
+	if err := server.ListenAndServe(); err != nil {
+		fmt.Println("Server start failed.")
+	} else {
+		fmt.Println("Server start success.")
+	}
+}
