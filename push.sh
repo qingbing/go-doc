@@ -1,22 +1,39 @@
 #!/bin/bash
-# clear screen
-clear
+# 清屏幕
+# clear
 
-# fetch current branch
-CUR_BRANCH=$(git branch | grep '\*' | awk -F ' ' '{print $2}')
+# 操作的分支， 默认当前的分支。 用 "-b" 指定
+BRANCH=$(git branch | grep '\*' | awk -F ' ' '{print $2}')
+# 操作的 commit 注释，默认当前时间。 用 "-c" 指定
+COMMIT_MSG=$(date "+%Y%m%d%H%M")
+# 操作的git-origin， 默认 origin。 用 "-o" 指定
+ORIGIN=origin
 
-# get the release comment
-commitMsg=$1
-# check comment
-if [[ -z $commitMsg ]]; then
-	commitMsg=$(date "+%Y%m%d%H%M")
-fi
+# 指定变量
+until [ $# -eq 0 ]; do
+  case $1 in
+  -b)
+    BRANCH=$2
+    shift
+    ;;
+  -c)
+    COMMIT_MSG=$2
+    shift
+    ;;
+  -o)
+    ORIGIN=$2
+    shift
+    ;;
+  *) ;;
+  esac
+  shift
+done
 
 # commit the comment
-git commit -m "${commitMsg}"
+git commit -m "${COMMIT_MSG}"
 
 # push
-git push origin "${CUR_BRANCH}"
+git push "${ORIGIN}" "${BRANCH}"
 # tip
 if [[ $? -ne 0 ]]; then
 	echo "push fail"
