@@ -26,8 +26,9 @@
 - 主用用于分析 CPU,Memory,Block,Goroutine
   - CPU profile: 报告程序的 CPU 使用情况，按照一定频率去采集应用程序在 CPU 和寄存器上面的数据
   - Memory Profile（Heap Profile）: 报告程序的内存使用情况
-  - Block Profiling: 报告 goroutines 不在运行状态的情况，可以用来分析和查找死锁等性能瓶颈
+  - Block Profiling: 报告 goroutines 不在运行状态的情况，可以用来分析和查找死锁等性能瓶颈, 解决数据竞争分析
   - Goroutine Profiling: 报告 goroutines 的使用情况，有哪些 goroutine，它们的调用关系是怎样的
+  - I/O: IO使用情况
 - go 语言提供了 net/http/pprof 和 runtime/pprof 两个库
   - net/http/pprof
     - 在 pprof.go 文件中默认包含路由(/debug/pprof/，/debug/pprof/cmdline，/debug/pprof/profile，/debug/pprof/symbol，debug/pprof/trace)
@@ -62,20 +63,42 @@
 
 ## 4. 通过 pprof 分析相关信息
 
+
+```bash
+# 查看帮助信息
+go tool pprof -h
+# 通过 url 直接分析 pprof 链接， 会进入 pprof 面板
+go tool ppprof {http://localhost:6060/debug/pprof/allocs}
+```
+
+- pprof交互面板
+```bash
+# 查看资源的使用情况， 根据 flat 倒叙排列
+top
+# 只显示 5 行
+top 5
+# 通过 list 查看占用资源最多的函数
+list funcName
+# 通过 web 指令在网页中展示，需要安装 Graphviz
+web
+```
+
 ### 4.1 通过监听端口利用web进行分析
 
 - web界面链接介绍
   - allocs: 查看过去所有内存分配的样本
   - block: 查看导致阻塞同步的堆栈跟踪
-  - cmdline: 当前程序的命令行的完整调用路径
-  - goroutine: 查看当前所有运行的 goroutines 堆栈跟踪
+  - cmdline: 当前程序的命令行的完整调用路径， 目前意义不大
+  - goroutine: 查看当前所有运行的 goroutine 堆栈跟踪
   - heap: 查看活动对象的内存分配情况
   - mutex: 查看导致互斥锁的竞争持有者的堆栈跟踪
   - profile: 默认进行 30s 的 CPU Profiling，得到一个分析用的 profile 文件
   - threadcreate: 查看创建新 OS 线程的堆栈跟踪
+  - trace: 会下载一个文件, 整个应用程序运行过程的跟踪，默认 1s
 
 ```bash
 # 执行以下命令后会直接打开浏览器进行分析
+# 若为url 模式，会先下载到本地
 go tool pprof -http=:8801 http://127.0.0.1:8001/debug/pprof/profile
 go tool pprof -http=:8802 profile
 go tool pprof -http=:8803 pprof.log
