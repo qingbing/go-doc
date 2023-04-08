@@ -1,0 +1,56 @@
+// proto 文件的解析语法, 不指定默认为 proto2, proto2 的协议比 proto3 的协议更复杂
+syntax = "proto3"; 
+// 生成 grpc 的代码的引用路径, 引用路径从 mod 开始计算
+option go_package = "demo/grpc/stream/proto"; 
+// grpc 代码中 servername 的一部分(前缀)， 相当于命名空间
+package stream;
+
+// 导入
+import "google/protobuf/timestamp.proto"; // 时间类型
+import "google/protobuf/any.proto"; // 任意类型
+
+// 定义一个服务
+service Greeter {
+    // 一元调用
+    rpc SayHello (HelloRequest) returns (HelloReplay) {}
+    //  客户端流, eg: 上传文件
+    rpc SayHelloClientStream(stream HelloRequest) returns (HelloReplay) {}
+    // 服务端流, eg: 下载文件
+    rpc SayHelloServerStream(HelloRequest) returns (stream HelloReplay) {}
+    // 双向流, eg: 机器人克服场景， 一问一答
+    rpc SayHelloTwoWayStream(stream HelloRequest) returns (stream HelloReplay) {}
+}
+
+enum Gender {
+    // 男
+    MALE = 0; // 在 proto3 语法里， 第一个值必须时 0
+    // 女
+    FEMALE = 1;
+    // 未知
+    UNKNOWN = 3;
+}
+
+message Address {
+    string provice = 1;
+    string city = 2;
+}
+
+message HelloRequest {
+    // [1-15] 占用一个字节， 数字越大，占用越多， 在使用时尽量不超过15个字段
+    // 如果大于15个字段，尽量将使用频繁的字段写在前面， 也有几率构建小的占用
+    string name = 1; // 字段的标志
+    Gender gender = 2;
+    uint32 age = 3;
+    google.protobuf.Timestamp birthday = 4; // 时间
+    Address addr = 5;
+    repeated string hoppy = 7; // repeated 会被转化为数组
+    map<string,google.protobuf.Any> data = 8;
+    // string sex = 200; // 不能使用， 200 被 reserved
+    // string phone = 3; // 不能使用， phone 被 reserved
+    reserved 100, 103, 150 to 200; // 保留标记: 不能在定义时使用
+    reserved "phone", "email"; // 保留字段: 不能在定义时使用
+}
+
+message HelloReplay {
+    string message = 1;
+}
