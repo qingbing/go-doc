@@ -50,3 +50,6 @@
     - delete
       - one
       - all
+
+
+go build
